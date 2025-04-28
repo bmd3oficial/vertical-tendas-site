@@ -1,0 +1,174 @@
+import { defineStore } from "pinia";
+import axios from "axios";
+import { toast } from "vue-sonner";
+
+import { useRuntimeConfig, useCookie } from "#app";
+import type {
+  IAbout,
+  IBanner,
+  IProduct,
+  IQuestion,
+  ITestimonial,
+} from "~/types";
+
+export const useApiStore = defineStore("api", {
+  state: () => ({
+    loading: false,
+    error: null as string | null,
+    token: useCookie("access_token"),
+    //
+    products: [] as IProduct[],
+    product: {} as IProduct,
+    loadingProduct: false,
+    //
+    testimonials: [] as ITestimonial[],
+    loadingTestimonial: false,
+    //
+    questions: [] as IQuestion[],
+    loadingQuestion: false,
+    //
+    banners: [] as IBanner[],
+    loadingBanner: false,
+    //
+    about: {},
+  }),
+
+  actions: {
+    getHeaders() {
+      const token = this.token;
+      return {
+        Authorization: token ? `Bearer ${token}` : undefined,
+      };
+    },
+
+    async getBanners() {
+      const apiBase = useRuntimeConfig().public.API_URL;
+
+      try {
+        this.loadingBanner = true;
+        this.error = null;
+        const response = await axios.get<IBanner[]>(`${apiBase}/banners`, {
+          headers: this.getHeaders(),
+        });
+        this.banners = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error = err.response?.data?.message || "Erro ao buscar banners";
+        toast.error(this.error);
+        throw this.error;
+      } finally {
+        this.loadingBanner = false;
+      }
+    },
+
+    async getTestimonials() {
+      const apiBase = useRuntimeConfig().public.API_URL;
+
+      try {
+        this.loadingTestimonial = true;
+        this.error = null;
+        const response = await axios.get<ITestimonial[]>(
+          `${apiBase}/testimonials`,
+          {
+            headers: this.getHeaders(),
+          }
+        );
+
+        this.testimonials = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error =
+          err.response?.data?.message || "Erro ao buscar depoimentos";
+        toast.error(this.error);
+        throw this.error;
+      } finally {
+        this.loadingTestimonial = false;
+      }
+    },
+
+    async getQuestions() {
+      const apiBase = useRuntimeConfig().public.API_URL;
+
+      try {
+        this.loadingQuestion = true;
+        this.error = null;
+        const response = await axios.get<IQuestion[]>(`${apiBase}/questions`, {
+          headers: this.getHeaders(),
+        });
+
+        this.questions = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error = err.response?.data?.message || "Erro ao buscar perguntas";
+        toast.error(this.error);
+        throw this.error;
+      } finally {
+        this.loadingQuestion = false;
+      }
+    },
+
+    async getProducts() {
+      const apiBase = useRuntimeConfig().public.API_URL;
+
+      try {
+        this.loadingProduct = true;
+        this.error = null;
+        const response = await axios.get<IProduct[]>(`${apiBase}/products`, {
+          headers: this.getHeaders(),
+        });
+        this.products = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error = err.response?.data?.error || "Erro ao buscar produtos";
+        toast.error(this.error);
+        throw this.error;
+      } finally {
+        this.loadingProduct = false;
+      }
+    },
+
+    async getProduct(id: string) {
+      const apiBase = useRuntimeConfig().public.API_URL;
+
+      try {
+        this.loadingProduct = true;
+        this.error = null;
+        const response = await axios.get<IProduct>(
+          `${apiBase}/products/${id}`,
+          {
+            headers: this.getHeaders(),
+          }
+        );
+        this.product = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error = err.response?.data?.error || "Erro ao buscar produto";
+        toast.error(this.error);
+        throw this.error;
+      } finally {
+        this.loadingProduct = false;
+      }
+    },
+
+    async getAbout() {
+      const apiBase = useRuntimeConfig().public.API_URL;
+      try {
+        this.loading = true;
+        this.error = null;
+        const response = await axios.get<IAbout>(`${apiBase}/about`, {
+          headers: this.getHeaders(),
+        });
+
+        this.about = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error =
+          err.response?.data?.message || "Erro ao buscar informações";
+        toast.error(this.error);
+        throw this.error;
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+});

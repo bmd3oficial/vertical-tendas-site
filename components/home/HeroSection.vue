@@ -1,0 +1,96 @@
+<script setup lang="ts">
+import { useApiStore } from "@/stores/api";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const apiStore = useApiStore();
+
+const banners = computed(() => apiStore.banners);
+const loadingBanner = computed(() => apiStore.loadingBanner);
+
+onMounted(async () => {
+  await apiStore.getBanners();
+});
+</script>
+
+<template>
+  <section class="relative w-full bg-white overflow-hidden">
+    <div
+      v-if="banners.length > 0"
+      class="relative w-full min-h-[500px] md:min-h-[728px] overflow-hidden"
+    >
+      <Carousel
+        class="w-full h-full"
+        :opts="{
+          loop: true,
+        }"
+      >
+        <CarouselContent>
+          <template v-if="!loadingBanner">
+            <CarouselItem
+              v-for="(banner, index) in banners"
+              :key="index"
+              class="relative w-full h-[500px] md:h-[728px]"
+            >
+              <div
+                class="w-full h-full bg-cover bg-center bg-no-repeat"
+                :style="{
+                  backgroundImage: `url('https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${banner.image}')`,
+                }"
+              >
+                <!-- TEXTO FIXO -->
+                <div
+                  class="absolute top-1/2 left-4 transform -translate-y-1/2 md:left-20 max-w-xl px-2"
+                >
+                  <h1
+                    class="text-white text-2xl sm:text-3xl md:text-5xl font-bold leading-snug tracking-tight"
+                  >
+                    <span class="font-bold">A </span>
+                    <span class="text-[#efb511] font-bold">Tenda Certa </span>
+                    <span>para Condições Extremas.</span>
+                  </h1>
+                  <p class="mt-4 text-white text-base md:text-xl">
+                    Conheça a Tenda Piramidal.
+                  </p>
+                </div>
+              </div>
+            </CarouselItem>
+          </template>
+          <template v-else>
+            <CarouselItem class="relative w-full h-[500px] md:h-[728px]">
+              <Skeleton class="w-full h-full" />
+            </CarouselItem>
+          </template>
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </div>
+
+    <div
+      v-else
+      class="relative w-full min-h-[500px] md:min-h-[728px] bg-[url('/mask-group.png')] bg-cover bg-center bg-no-repeat"
+    >
+      <div
+        class="absolute top-1/2 left-4 transform -translate-y-1/2 md:left-20 max-w-xl px-2"
+      >
+        <h1
+          class="text-white text-2xl sm:text-3xl md:text-5xl font-bold leading-snug tracking-tight"
+        >
+          <span class="font-bold">A </span>
+          <span class="text-[#efb511] font-bold">Tenda Certa </span>
+          <span>para Condições Extremas.</span>
+        </h1>
+        <p class="mt-4 text-white text-base md:text-xl">
+          Conheça a Tenda Piramidal.
+        </p>
+      </div>
+    </div>
+  </section>
+</template>
