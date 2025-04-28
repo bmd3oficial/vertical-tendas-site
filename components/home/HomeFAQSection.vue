@@ -20,7 +20,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="px-16 py-[100px] relative w-full">
+  <section class="px-16 py-[100px] relative w-full" id="duvidas">
     <div class="bg-[#1062c4] rounded-[20px] px-[100px] py-[45px]">
       <h2
         class="text-[30px] font-bold text-white text-center tracking-[-1.50px] mb-11"

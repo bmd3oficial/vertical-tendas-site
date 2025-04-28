@@ -15,10 +15,10 @@ import {
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Sobre", href: "/about" },
-  { name: "Produtos", href: "#produtos" },
-  { name: "Serviços", href: "#servicos" },
-  { name: "Fale Conosco", href: "#contato" },
+  { name: "Sobre", href: "/sobre" },
+  { name: "Produtos", href: "/#produtos" },
+  { name: "Dúvidas", href: "/#duvidas" },
+  { name: "Fale Conosco", href: "/#contato" },
 ];
 </script>
 

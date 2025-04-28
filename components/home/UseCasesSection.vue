@@ -64,7 +64,11 @@ watchEffect(() => {
               <p
                 class="text-sm sm:text-base mt-3 max-w-[300px] md:max-w-[324px] leading-snug"
               >
-                {{ useCase.description }}
+                {{
+                  useCase.description.length > 150
+                    ? useCase.description.slice(0, 150) + "..."
+                    : useCase.description
+                }}
               </p>
             </div>
           </div>

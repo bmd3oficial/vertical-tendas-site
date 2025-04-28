@@ -122,12 +122,16 @@ onMounted(async () => {
 
           <div>
             <h3
-              class="text-xl sm:text-2xl md:text-[25px] font-bold text-[#1b1e1e]"
+              class="text-xl sm:text-2xl md:text-[25px] font-bold text-[#1b1e1e] mt-3 mb-1"
             >
               {{ useCase.title }}
             </h3>
             <p class="text-[#6a6a6a] text-base leading-6">
-              {{ useCase.description }}
+              {{
+                useCase.description.length > 100
+                  ? useCase.description.slice(0, 100) + "..."
+                  : useCase.description
+              }}
             </p>
           </div>
         </div>

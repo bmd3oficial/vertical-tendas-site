@@ -73,7 +73,10 @@ watch([currentIndex, products], updateVisibleProducts);
 </script>
 
 <template>
-  <section class="flex flex-col gap-12 px-4 sm:px-8 lg:px-16 py-16 w-full">
+  <section
+    class="flex flex-col gap-12 px-4 sm:px-8 lg:px-16 py-16 w-full"
+    id="produtos"
+  >
     <div
       class="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full gap-8"
     >
@@ -153,7 +156,11 @@ watch([currentIndex, products], updateVisibleProducts);
                 {{ product.name }}
               </h3>
               <p class="text-[#6a6a6a] text-base leading-6">
-                {{ product.description }}
+                {{
+                  product.description.length > 100
+                    ? product.description.slice(0, 100) + "..."
+                    : product.description
+                }}
               </p>
             </div>
           </div>

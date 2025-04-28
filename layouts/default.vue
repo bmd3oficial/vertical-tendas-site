@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Sobre", href: "/about" },
-  { name: "Produtos", href: "#produtos" },
-  { name: "Serviços", href: "#servicos" },
-  { name: "Fale Conosco", href: "#contato" },
+  { name: "Sobre", href: "/sobre" },
+  { name: "Produtos", href: "/#produtos" },
+  { name: "Dúvidas", href: "/#duvidas" },
+  { name: "Fale Conosco", href: "/#contato" },
 ];
 const footerLinks = ["Sobre", "Dúvidas", "Fale Conosco", "Ligue Agora"];
 
@@ -31,14 +31,14 @@ const footerProducts = [
         <div class="flex items-center justify-between space-x-2 md:justify-end">
           <div class="w-full flex-1 md:w-auto md:flex-none">
             <div class="hidden md:flex">
-              <NuxtLink
+              <a
                 v-for="item in navLinks"
                 :key="item.href"
-                :to="item.href"
+                :href="item.href"
                 class="px-4 py-2 text-sm font-medium transition-colors hover:text-primary"
               >
                 {{ item.name }}
-              </NuxtLink>
+              </a>
             </div>
           </div>
         </div>
