@@ -35,6 +35,11 @@ onMounted(async () => {
   await apiStore.getAbout();
   await apiStore.getProducts();
 });
+
+function truncateText(text, maxLength) {
+  if (!text) return "";
+  return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+}
 </script>
 
 <template>
@@ -78,12 +83,12 @@ onMounted(async () => {
           </NuxtLink>
           <div>
             <h3
-              class="text-xl sm:text-2xl md:text-[25px] font-bold text-[#1b1e1e]"
+              class="text-xl sm:text-2xl mt-3 md:text-[25px] font-bold text-[#1b1e1e]"
             >
               {{ useCase.title }}
             </h3>
             <p class="text-[#6a6a6a] text-base leading-6">
-              {{ useCase.description }}
+              {{ truncateText(useCase.description, 100) }}
             </p>
           </div>
         </div>
