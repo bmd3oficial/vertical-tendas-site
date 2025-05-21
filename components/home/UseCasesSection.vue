@@ -8,7 +8,13 @@ const products = computed(() => apiStore.products);
 const loadingProduct = computed(() => apiStore.loadingProduct);
 
 const useCases = ref<
-  { id: string; title: string; description: string; image: string }[]
+  {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    slug: string;
+  }[]
 >([]);
 
 function getRandomItems<T>(arr: T[], count: number): T[] {
@@ -23,6 +29,7 @@ watchEffect(() => {
       id: product.id,
       title: product.name,
       description: product.description,
+      slug: product.slug,
       image: product.images[0]?.image || "/fallback.png",
     }));
   }
@@ -39,7 +46,9 @@ watchEffect(() => {
         :key="index"
         class="flex-1 w-full bg-[#e9e9e9] rounded-[20px] overflow-hidden border-[#eaeaea]"
       >
-        <NuxtLink :to="{ name: 'product-id', params: { id: useCase.id } }">
+        <NuxtLink
+          :to="{ name: 'produto-slug', params: { slug: useCase.slug } }"
+        >
           <div
             class="relative w-full min-h-[400px] sm:min-h-[450px] md:min-h-[520px] group"
           >

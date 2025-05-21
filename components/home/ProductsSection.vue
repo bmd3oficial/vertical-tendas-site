@@ -140,7 +140,7 @@ watch([currentIndex, products], updateVisibleProducts);
               class="h-[250px] sm:h-[300px] md:h-[332px] overflow-hidden rounded-[20px]"
             >
               <NuxtLink
-                :to="{ name: 'product-id', params: { id: product.id } }"
+                :to="{ name: 'produto-slug', params: { slug: product.slug } }"
               >
                 <img
                   :src="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${product.images[0].image}`"

@@ -18,12 +18,16 @@ onMounted(async () => {
   await apiStore.getQuestions();
 });
 </script>
-
 <template>
-  <section class="px-16 py-[100px] relative w-full" id="duvidas">
-    <div class="bg-[#1062c4] rounded-[20px] px-[100px] py-[45px]">
+  <section
+    class="sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 lg:py-[100px] relative w-full"
+    id="duvidas"
+  >
+    <div
+      class="bg-[#1062c4] rounded-[20px] px-4 sm:px-8 md:px-12 lg:px-[100px] py-8 sm:py-10 md:py-[45px]"
+    >
       <h2
-        class="text-[30px] font-bold text-white text-center tracking-[-1.50px] mb-11"
+        class="text-2xl sm:text-[26px] md:text-[30px] font-bold text-white text-center tracking-[-1px] sm:tracking-[-1.50px] mb-6 sm:mb-8 md:mb-11"
       >
         Principais dúvidas
       </h2>
@@ -32,20 +36,20 @@ onMounted(async () => {
         v-if="!loading"
         type="single"
         collapsible
-        class="max-w-[854px] mx-auto"
+        class="w-full max-w-[854px] mx-auto"
       >
         <AccordionItem
           v-for="(item, index) in questions"
           :key="index"
           :value="`item-${index}`"
           :class="[
-            'mb-6 p-6 rounded-[10px]',
+            'mb-4 sm:mb-6 p-4 sm:p-6 rounded-[10px]',
             index === 0 ? 'bg-[#4185d6]' : 'bg-white',
           ]"
         >
           <AccordionTrigger
             :class="[
-              'cursor-pointer flex items-center justify-between w-full text-sm  tracking-[-0.24px] ',
+              'cursor-pointer flex items-center justify-between w-full text-xs sm:text-sm tracking-[-0.24px] ',
               index === 0
                 ? 'font-bold text-white'
                 : 'font-medium text-[#1b1e1e]',
@@ -55,18 +59,18 @@ onMounted(async () => {
           </AccordionTrigger>
           <AccordionContent
             v-if="item.description"
-            class="mt-3 text-sm"
+            class="mt-2 sm:mt-3 text-xs sm:text-sm"
             :class="index === 0 ? 'text-white' : 'text-[#1b1e1e]'"
           >
             {{ item.description }}
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-      <div v-else class="grid gap-4">
+      <div v-else class="grid gap-3 sm:gap-4 max-w-[854px] mx-auto">
         <Skeleton
           v-for="index in 3"
           :key="index"
-          class="h-[50px] sm:h-[80px] md:h-[110px] overflow-hidden rounded-[20px] w-full"
+          class="h-[50px] sm:h-[65px] md:h-[80px] lg:h-[110px] overflow-hidden rounded-[10px] sm:rounded-[20px] w-full"
         />
       </div>
     </div>

@@ -16,8 +16,8 @@ import {
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Sobre", href: "/sobre" },
-  { name: "Produtos", href: "/#produtos" },
-  { name: "Dúvidas", href: "/#duvidas" },
+  { name: "Produtos", href: "/produtos" },
+  { name: "Dúvidas", href: "/duvidas" },
   { name: "Fale Conosco", href: "/#contato" },
 ];
 </script>

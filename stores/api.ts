@@ -127,14 +127,14 @@ export const useApiStore = defineStore("api", {
       }
     },
 
-    async getProduct(id: string) {
+    async getProduct(slug: string) {
       const apiBase = useRuntimeConfig().public.API_URL;
 
       try {
         this.loadingProduct = true;
         this.error = null;
         const response = await axios.get<IProduct>(
-          `${apiBase}/products/${id}`,
+          `${apiBase}/products/slug/${slug}`,
           {
             headers: this.getHeaders(),
           }

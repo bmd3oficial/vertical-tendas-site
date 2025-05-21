@@ -8,6 +8,10 @@ export interface IProduct {
   id: string;
   name: string;
   description: string;
+  materials?: string;
+  sizes?: string[];
+  colors?: string[];
+  slug: string;
   createdAt: Date;
   images: IProductImage[];
 }

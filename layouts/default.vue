@@ -2,11 +2,10 @@
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Sobre", href: "/sobre" },
-  { name: "Produtos", href: "/#produtos" },
-  { name: "Dúvidas", href: "/#duvidas" },
-  { name: "Fale Conosco", href: "/#contato" },
+  { name: "Produtos", href: "/produtos" },
+  { name: "Dúvidas", href: "/duvidas" },
+  { name: "Fale Conosco", href: "/contato" },
 ];
-const footerLinks = ["Sobre", "Dúvidas", "Fale Conosco", "Ligue Agora"];
 
 const footerProducts = [
   "Tenda Sanfonada",
@@ -31,14 +30,14 @@ const footerProducts = [
         <div class="flex items-center justify-between space-x-2 md:justify-end">
           <div class="w-full flex-1 md:w-auto md:flex-none">
             <div class="hidden md:flex">
-              <a
+              <NuxtLink
                 v-for="item in navLinks"
                 :key="item.href"
-                :href="item.href"
+                :to="item.href"
                 class="px-4 py-2 text-sm font-medium transition-colors hover:text-primary"
               >
                 {{ item.name }}
-              </a>
+              </NuxtLink>
             </div>
           </div>
         </div>
@@ -84,10 +83,28 @@ const footerProducts = [
               Links úteis
             </h3>
             <ul>
-              <li v-for="link in footerLinks" :key="link">
-                <a href="#" class="text-[#7c7c7c] tracking-[-0.40px]">
-                  {{ link }}
-                </a>
+              <li>
+                <NuxtLink to="/sobre" class="text-[#7c7c7c] tracking-[-0.40px]">
+                  Sobre
+                </NuxtLink>
+              </li>
+
+              <li>
+                <NuxtLink
+                  to="/duvidas"
+                  class="text-[#7c7c7c] tracking-[-0.40px]"
+                >
+                  Dúvidas
+                </NuxtLink>
+              </li>
+
+              <li>
+                <NuxtLink
+                  to="/contato"
+                  class="text-[#7c7c7c] tracking-[-0.40px]"
+                >
+                  Fale conosco
+                </NuxtLink>
               </li>
             </ul>
           </div>
