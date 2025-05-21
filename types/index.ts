@@ -46,3 +46,13 @@ export interface IRegister {
 export interface IAbout {
   text: string;
 }
+
+export interface IContact {
+  whatsapp: string;
+  email: string;
+  address: string;
+  instagram: string;
+  facebook: string;
+  youtube: string;
+  tiktok: string;
+}

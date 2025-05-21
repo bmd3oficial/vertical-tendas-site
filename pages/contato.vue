@@ -99,7 +99,7 @@ onMounted(async () => {
       <div class="w-full lg:w-1/2">
         <div class="h-full w-full rounded-lg overflow-hidden">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.3014693818286!2d-43.1770976239741!3d-22.90224857925806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997f58a6a00a9d%3A0x3f251d85272f76f7!2sHostnet!5e0!3m2!1sen!2sbr!4v1625063228679!5m2!1sen!2sbr"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.812731959228!2d-46.61377402466845!3d-23.61104817876568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5b98c44d21b5%3A0xe748d955ca60e5d9!2sR.%20S%C3%A3o%20Daniel%2C%20309%20-%20Vila%20Brasilio%20Machado%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2004288-110!5e0!3m2!1spt-BR!2sbr!4v1747849973582!5m2!1spt-BR!2sbr"
             width="100%"
             height="100%"
             style="border: 0"

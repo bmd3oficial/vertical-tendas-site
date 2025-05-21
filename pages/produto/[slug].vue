@@ -147,7 +147,7 @@ onMounted(async () => {
             <!-- CTA button with improved responsive sizing -->
             <a href="">
               <button
-                class="mt-6 sm:mt-8 lg:mt-10 bg-green-600 hover:bg-green-700 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
+                class="mt-6 sm:mt-8 lg:mt-10 bg-[#18ab1a] text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
               >
                 <svg
                   width="16"

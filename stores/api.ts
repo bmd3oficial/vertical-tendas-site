@@ -6,6 +6,7 @@ import { useRuntimeConfig, useCookie } from "#app";
 import type {
   IAbout,
   IBanner,
+  IContact,
   IProduct,
   IQuestion,
   ITestimonial,
@@ -31,6 +32,7 @@ export const useApiStore = defineStore("api", {
     loadingBanner: false,
     //
     about: {},
+    contact: {} as IContact,
   }),
 
   actions: {
@@ -160,6 +162,26 @@ export const useApiStore = defineStore("api", {
         });
 
         this.about = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error =
+          err.response?.data?.message || "Erro ao buscar informações";
+        toast.error(this.error);
+        throw this.error;
+      } finally {
+        this.loading = false;
+      }
+    },
+    async getContact() {
+      const apiBase = useRuntimeConfig().public.API_URL;
+      try {
+        this.loading = true;
+        this.error = null;
+        const response = await axios.get<IContact>(`${apiBase}/contact`, {
+          headers: this.getHeaders(),
+        });
+
+        this.contact = response.data;
         return response.data;
       } catch (err: any) {
         this.error =
