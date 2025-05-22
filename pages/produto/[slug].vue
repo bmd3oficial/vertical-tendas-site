@@ -200,7 +200,8 @@ onUnmounted(() => {
               <div>
                 <h2 class="font-semibold mb-1 text-[#000000]">Materiais:</h2>
                 <div
-                  class="text-sm sm:text-base"
+                  class="text-sm text-[#000000"
+                  style="color: #000"
                   v-html="product.materials.replace(/\n/g, '<br>')"
                 ></div>
               </div>
