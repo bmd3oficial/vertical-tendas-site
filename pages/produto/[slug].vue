@@ -189,6 +189,7 @@ onUnmounted(() => {
                 <h2 class="font-semibold mb-1">Medidas:</h2>
                 <div class="flex flex-wrap gap-2">
                   <span
+                    style="color: #000"
                     v-for="(size, index) in product.sizes"
                     :key="index"
                     class="px-3 py-1 border rounded bg-white text-xs sm:text-sm"
