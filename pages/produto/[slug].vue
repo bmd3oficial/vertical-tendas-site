@@ -153,7 +153,9 @@ onUnmounted(() => {
       </div>
 
       <!-- Product details container with improved vertical spacing -->
-      <div class="flex flex-col justify-start mt-4 md:mt-0 md:justify-center">
+      <div
+        class="flex flex-col justify-start mt-4 md:mt-0 md:justify-center text-[#000000]"
+      >
         <div v-if="loadingProduct" class="space-y-4">
           <Skeleton class="h-6 sm:h-8 w-3/4" />
           <Skeleton class="h-4 sm:h-6 w-full" />
@@ -196,7 +198,7 @@ onUnmounted(() => {
               </div>
 
               <div>
-                <h2 class="font-semibold mb-1">Materiais:</h2>
+                <h2 class="font-semibold mb-1 text-[#000000]">Materiais:</h2>
                 <div
                   class="text-sm sm:text-base"
                   v-html="product.materials.replace(/\n/g, '<br>')"
