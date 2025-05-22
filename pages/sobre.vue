@@ -63,9 +63,5 @@ onMounted(async () => {
         </div>
       </div>
     </div>
-
-    <div class="mt-10">
-      <MoreProducts />
-    </div>
   </section>
 </template>

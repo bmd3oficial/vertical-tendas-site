@@ -33,7 +33,7 @@ const navLinks = [
               :to="{ name: 'index' }"
               class="mr-6 flex items-center space-x-2"
             >
-              <img src="/logo.png" alt="Logo" class="h-6" />
+              <img src="/logo.svg" alt="Logo" class="h-6" />
             </NuxtLink>
           </SheetClose>
         </SheetTitle>

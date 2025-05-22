@@ -237,6 +237,6 @@ onMounted(async () => {
     </div>
 
     <!-- FAQ section -->
-    <HomeFAQSection />
   </section>
+  <FAQSection />
 </template>

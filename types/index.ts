@@ -33,7 +33,7 @@ export interface IQuestion {
 export interface IBanner {
   id: string;
   title: string;
-  description: string;
+  subtitle: string;
   image: string;
 }
 
@@ -55,4 +55,12 @@ export interface IContact {
   facebook: string;
   youtube: string;
   tiktok: string;
+}
+
+export interface IAnuncio {
+  id: string;
+  title: string;
+  description: string;
+  link: string;
+  image: string;
 }

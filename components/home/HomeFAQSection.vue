@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useApiStore } from "@/stores/api";
+import { ref } from "vue";
 
 import {
   Accordion,
@@ -13,6 +14,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 const apiStore = useApiStore();
 const questions = computed(() => apiStore.questions);
 const loading = computed(() => apiStore.loadingQuestion);
+
+// Estado para controlar qual item está ativo
+const activeItem = ref<string | null>(null);
+
+// Função para atualizar o item ativo
+const handleValueChange = (value: string | string[] | undefined) => {
+  // Como estamos usando type="single", o valor sempre será string ou undefined
+  activeItem.value = typeof value === "string" ? value : null;
+};
 
 onMounted(async () => {
   await apiStore.getQuestions();
@@ -37,30 +47,33 @@ onMounted(async () => {
         type="single"
         collapsible
         class="w-full max-w-[854px] mx-auto"
+        @update:model-value="handleValueChange"
       >
         <AccordionItem
           v-for="(item, index) in questions"
           :key="index"
           :value="`item-${index}`"
           :class="[
-            'mb-4 sm:mb-6 p-4 sm:p-6 rounded-[10px]',
-            index === 0 ? 'bg-[#4185d6]' : 'bg-white',
+            'mb-4 sm:mb-6 p-4 sm:p-6 rounded-[10px] transition-colors duration-200',
+            activeItem === `item-${index}` ? 'bg-[#4185d6]' : 'bg-white',
           ]"
         >
           <AccordionTrigger
             :class="[
-              'cursor-pointer flex items-center justify-between w-full text-xs sm:text-sm tracking-[-0.24px] ',
-              index === 0
-                ? 'font-bold text-white'
-                : 'font-medium text-[#1b1e1e]',
+              'cursor-pointer flex items-center justify-between w-full text-xs sm:text-sm tracking-[-0.24px] transition-colors duration-200',
+              activeItem === `item-${index}`
+                ? 'font-bold text-white [&>svg]:text-white'
+                : 'font-medium text-[#1b1e1e] [&>svg]:text-[#1b1e1e]',
             ]"
           >
             {{ item.title }}
           </AccordionTrigger>
           <AccordionContent
             v-if="item.description"
-            class="mt-2 sm:mt-3 text-xs sm:text-sm"
-            :class="index === 0 ? 'text-white' : 'text-[#1b1e1e]'"
+            class="mt-2 sm:mt-3 text-xs sm:text-sm transition-colors duration-200"
+            :class="
+              activeItem === `item-${index}` ? 'text-white' : 'text-[#1b1e1e]'
+            "
           >
             {{ item.description }}
           </AccordionContent>

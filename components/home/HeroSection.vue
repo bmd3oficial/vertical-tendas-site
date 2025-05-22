@@ -17,6 +17,15 @@ const loadingBanner = computed(() => apiStore.loadingBanner);
 onMounted(async () => {
   await apiStore.getBanners();
 });
+
+function splitTitle(title: string) {
+  const words = title.trim().split(" ");
+  return {
+    part1: words.slice(0, 1).join(" "),
+    part2: words.slice(1, 3).join(" "),
+    part3: words.slice(3).join(" "),
+  };
+}
 </script>
 
 <template>
@@ -50,13 +59,20 @@ onMounted(async () => {
                 >
                   <h1
                     class="text-white text-2xl sm:text-3xl md:text-5xl font-bold leading-snug tracking-tight"
+                    v-if="banner.title"
                   >
-                    <span class="font-bold">A </span>
-                    <span class="text-[#efb511] font-bold">Tenda Certa </span>
-                    <span>para Condições Extremas.</span>
+                    <span class="font-bold">{{
+                      splitTitle(banner.title).part1
+                    }}</span>
+                    <span class="text-[#efb511] font-bold ml-1">{{
+                      splitTitle(banner.title).part2
+                    }}</span>
+                    <span class="ml-1">{{
+                      splitTitle(banner.title).part3
+                    }}</span>
                   </h1>
                   <p class="mt-4 text-white text-base md:text-xl">
-                    Conheça a Tenda Piramidal.
+                    {{ banner.subtitle }}
                   </p>
                 </div>
               </div>

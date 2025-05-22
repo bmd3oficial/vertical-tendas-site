@@ -8,6 +8,17 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  app: {
+    head: {
+      link: [
+        {
+          rel: "icon",
+
+          href: "/icon.png",
+        },
+      ],
+    },
+  },
   runtimeConfig: {
     public: {
       API_URL:

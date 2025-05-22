@@ -5,6 +5,7 @@ import { toast } from "vue-sonner";
 import { useRuntimeConfig, useCookie } from "#app";
 import type {
   IAbout,
+  IAnuncio,
   IBanner,
   IContact,
   IProduct,
@@ -33,6 +34,7 @@ export const useApiStore = defineStore("api", {
     //
     about: {},
     contact: {} as IContact,
+    anuncios: [] as IAnuncio[],
   }),
 
   actions: {
@@ -182,6 +184,26 @@ export const useApiStore = defineStore("api", {
         });
 
         this.contact = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error =
+          err.response?.data?.message || "Erro ao buscar informações";
+        toast.error(this.error);
+        throw this.error;
+      } finally {
+        this.loading = false;
+      }
+    },
+    async getAnuncios() {
+      const apiBase = useRuntimeConfig().public.API_URL;
+      try {
+        this.loading = true;
+        this.error = null;
+        const response = await axios.get<IAnuncio[]>(`${apiBase}/anuncios`, {
+          headers: this.getHeaders(),
+        });
+
+        this.anuncios = response.data;
         return response.data;
       } catch (err: any) {
         this.error =

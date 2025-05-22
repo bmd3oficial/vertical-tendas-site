@@ -1,11 +1,62 @@
 <script setup lang="ts">
-import { useApiStore } from "@/stores/api";
-const apiStore = useApiStore();
-
-onMounted(async () => {
-  await apiStore.getQuestions();
+const apiBase = useRuntimeConfig().public.API_URL;
+// Form reactive data
+const formData = reactive({
+  name: "",
+  company: "",
+  phone: "",
+  email: "",
+  message: "",
 });
+
+// Form state
+const isSubmitting = ref(false);
+const submitError = ref("");
+const submitSuccess = ref(false);
+
+// Form submission handler
+const handleSubmit = async (event: Event) => {
+  event.preventDefault();
+
+  isSubmitting.value = true;
+  submitError.value = "";
+  submitSuccess.value = false;
+
+  try {
+    // Send data to API using Nuxt 3's $fetch
+    await $fetch(`${apiBase}/messages`, {
+      method: "POST",
+      body: {
+        name: formData.name,
+        company: formData.company,
+        phone: formData.phone,
+        email: formData.email,
+        message: formData.message,
+      },
+    });
+
+    // Success - reset form and show success message
+    submitSuccess.value = true;
+    formData.name = "";
+    formData.company = "";
+    formData.phone = "";
+    formData.email = "";
+    formData.message = "";
+
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+      submitSuccess.value = false;
+    }, 5000);
+  } catch (error: any) {
+    console.error("Error submitting form:", error);
+    submitError.value =
+      error.data?.message || "Erro ao enviar mensagem. Tente novamente.";
+  } finally {
+    isSubmitting.value = false;
+  }
+};
 </script>
+
 <template>
   <div
     class="bg-[#1062c4] px-4 sm:px-8 md:px-12 lg:px-[100px] py-8 sm:py-10 md:py-[45px]"
@@ -20,7 +71,23 @@ onMounted(async () => {
       class="bg-[#347ACD] rounded-lg p-7 flex flex-col lg:flex-row gap-8 w-full md:w-[90%] lg:w-[70%] mx-auto"
     >
       <div class="w-full lg:w-1/2">
-        <form class="space-y-4">
+        <!-- Success Message -->
+        <div
+          v-if="submitSuccess"
+          class="mb-4 p-4 bg-green-500 text-white rounded-lg"
+        >
+          Mensagem enviada com sucesso! Entraremos em contato em breve.
+        </div>
+
+        <!-- Error Message -->
+        <div
+          v-if="submitError"
+          class="mb-4 p-4 bg-red-500 text-white rounded-lg"
+        >
+          {{ submitError }}
+        </div>
+
+        <form @submit="handleSubmit" class="space-y-4">
           <div>
             <label for="nome" class="block text-white font-medium mb-2"
               >Seu nome completo</label
@@ -28,9 +95,10 @@ onMounted(async () => {
             <input
               type="text"
               id="nome"
-              name="nome"
+              v-model="formData.name"
               required
-              class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              :disabled="isSubmitting"
+              class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
             />
           </div>
 
@@ -41,8 +109,9 @@ onMounted(async () => {
             <input
               type="text"
               id="empresa"
-              name="empresa"
-              class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              v-model="formData.company"
+              :disabled="isSubmitting"
+              class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
             />
           </div>
 
@@ -54,9 +123,10 @@ onMounted(async () => {
               <input
                 type="tel"
                 id="telefone"
-                name="telefone"
+                v-model="formData.phone"
                 required
-                class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                :disabled="isSubmitting"
+                class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
               />
             </div>
 
@@ -67,9 +137,10 @@ onMounted(async () => {
               <input
                 type="email"
                 id="email"
-                name="email"
+                v-model="formData.email"
                 required
-                class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                :disabled="isSubmitting"
+                class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
               />
             </div>
           </div>
@@ -80,18 +151,41 @@ onMounted(async () => {
             >
             <textarea
               id="mensagem"
-              name="mensagem"
+              v-model="formData.message"
               rows="4"
               required
-              class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              :disabled="isSubmitting"
+              class="w-full px-4 py-3 rounded-lg bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 px-6 rounded-lg transition duration-200"
+            :disabled="isSubmitting"
+            class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 px-6 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
-            Enviar mensagem
+            <svg
+              v-if="isSubmitting"
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            {{ isSubmitting ? "Enviando..." : "Enviar mensagem" }}
           </button>
         </form>
       </div>
