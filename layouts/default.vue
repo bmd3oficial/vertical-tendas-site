@@ -8,7 +8,7 @@ const navLinks = [
   { name: "Dúvidas", href: "/duvidas" },
   { name: "Fale Conosco", href: "/contato" },
 ];
-
+await apiStore.getProducts();
 const products = apiStore.products;
 
 const footerProducts = products;
@@ -102,6 +102,7 @@ function ensureHttps(url: string): string {
             <h3 class="font-medium text-[#1b1e1e] tracking-[-0.40px] mb-5">
               Nossos Produtos
             </h3>
+
             <ul>
               <li
                 v-for="product in footerProducts.slice(0, 5)"
