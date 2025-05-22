@@ -270,7 +270,7 @@ onUnmounted(() => {
               >
                 {{ useCase.title }}
               </h3>
-              <p class="text-[#000000] text-sm sm:text-base leading-6">
+              <p class="text-[#6a6a6a] text-sm sm:text-base leading-6">
                 {{
                   useCase.description.length > 100
                     ? useCase.description.slice(0, 100) + "..."
