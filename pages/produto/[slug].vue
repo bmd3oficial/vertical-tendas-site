@@ -116,7 +116,7 @@ onUnmounted(() => {
 <template>
   <!-- Main container with improved responsive padding -->
   <section
-    class="px-4 sm:px-6 md:px-8 lg:px-16 py-8 sm:py-12 lg:py-16 grid gap-8 sm:gap-12 lg:gap-16"
+    class="px-4 sm:px-6 md:px-8 lg:px-16 py-8 sm:py-12 lg:py-16 grid gap-8 sm:gap-12 lg:gap-16 text-[#000000]"
   >
     <!-- Product title with better responsive text sizing -->
     <p class="text-[#1B1E1E] text-3xl sm:text-4xl lg:text-5xl font-bold">
@@ -165,7 +165,7 @@ onUnmounted(() => {
         <div v-else>
           <span v-if="product?.description">
             <div
-              class="text-[#000000] text-sm sm:text-base"
+              class="text-sm sm:text-base"
               v-html="product?.description.replace(/\n/g, '<br>')"
             ></div>
 
