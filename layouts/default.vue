@@ -108,9 +108,12 @@ function ensureHttps(url: string): string {
                 v-for="product in footerProducts.slice(0, 5)"
                 :key="product.id"
               >
-                <a href="#" class="text-[#7c7c7c] tracking-[-0.40px]">
+                <NuxtLink
+                  :to="`/produto/${product.slug}`"
+                  class="text-[#7c7c7c] tracking-[-0.40px]"
+                >
                   {{ product.name }}
-                </a>
+                </NuxtLink>
               </li>
             </ul>
           </div>
