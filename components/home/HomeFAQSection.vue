@@ -29,12 +29,9 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <section
-    class="sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 lg:py-[100px] relative w-full"
-    id="duvidas"
-  >
+  <section class="relative w-full" id="duvidas">
     <div
-      class="bg-[#1062c4] rounded-[20px] px-4 sm:px-8 md:px-12 lg:px-[100px] py-8 sm:py-10 md:py-[45px]"
+      class="bg-[#1062c4] mt-10 px-4 sm:px-8 md:px-12 lg:px-[100px] py-8 sm:py-10 md:py-[45px]"
     >
       <h2
         class="text-2xl sm:text-[26px] md:text-[30px] font-bold text-white text-center tracking-[-1px] sm:tracking-[-1.50px] mb-6 sm:mb-8 md:mb-11"
