@@ -163,7 +163,7 @@ onUnmounted(() => {
         <div v-else>
           <span v-if="product?.description">
             <div
-              class="text-[#665244] text-sm sm:text-base"
+              class="text-[#000000] text-sm sm:text-base"
               v-html="product?.description.replace(/\n/g, '<br>')"
             ></div>
 

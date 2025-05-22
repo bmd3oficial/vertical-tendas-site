@@ -21,7 +21,7 @@ onMounted(async () => {
         <div class="flex flex-col lg:flex-row justify-between gap-8">
           <div class="w-full order-2 lg:order-1" v-if="about.text">
             <p
-              class="text-[#665244]"
+              class="text-[#000000]"
               v-html="about.text.replace(/\n/g, '<br />')"
             ></p>
           </div>
