@@ -17,6 +17,10 @@ const product = computed(() => apiStore.product);
 const loadingProduct = computed(() => apiStore.loadingProduct);
 const products = computed(() => apiStore.products);
 
+// Lightbox state
+const isLightboxOpen = ref(false);
+const currentImageIndex = ref(0);
+
 const useCases = ref<
   {
     id: string;
@@ -30,6 +34,51 @@ const useCases = ref<
 function getRandomItems<T>(arr: T[], count: number): T[] {
   const shuffled = [...arr].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
+}
+
+// Lightbox functions
+function openLightbox(index: number) {
+  currentImageIndex.value = index;
+  isLightboxOpen.value = true;
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  isLightboxOpen.value = false;
+  document.body.style.overflow = "";
+}
+
+function nextImage() {
+  if (product.value?.images) {
+    currentImageIndex.value =
+      (currentImageIndex.value + 1) % product.value.images.length;
+  }
+}
+
+function prevImage() {
+  if (product.value?.images) {
+    currentImageIndex.value =
+      currentImageIndex.value === 0
+        ? product.value.images.length - 1
+        : currentImageIndex.value - 1;
+  }
+}
+
+// Handle keyboard navigation
+function handleKeydown(event: KeyboardEvent) {
+  if (!isLightboxOpen.value) return;
+
+  switch (event.key) {
+    case "Escape":
+      closeLightbox();
+      break;
+    case "ArrowRight":
+      nextImage();
+      break;
+    case "ArrowLeft":
+      prevImage();
+      break;
+  }
 }
 
 watchEffect(() => {
@@ -52,8 +101,18 @@ onMounted(async () => {
   } else {
     router.push({ name: "index" });
   }
+
+  // Add keyboard event listener
+  document.addEventListener("keydown", handleKeydown);
+});
+
+onUnmounted(() => {
+  // Cleanup
+  document.removeEventListener("keydown", handleKeydown);
+  document.body.style.overflow = "";
 });
 </script>
+
 <template>
   <!-- Main container with improved responsive padding -->
   <section
@@ -82,7 +141,8 @@ onMounted(async () => {
                 <img
                   :src="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${image.image}`"
                   alt="Imagem do Produto"
-                  class="w-full h-64 sm:h-80 md:h-96 lg:h-[472px] object-cover rounded-lg"
+                  class="w-full h-64 sm:h-80 md:h-96 lg:h-[472px] object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                  @click="openLightbox(index)"
                 />
               </CarouselItem>
             </CarouselContent>
@@ -152,8 +212,6 @@ onMounted(async () => {
                 <svg
                   width="16"
                   height="16"
-                  sm:width="20"
-                  sm:height="20"
                   viewBox="0 0 76 76"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -238,5 +296,94 @@ onMounted(async () => {
 
     <!-- FAQ section -->
   </section>
+
+  <!-- Lightbox Modal -->
+  <Teleport to="body">
+    <div
+      v-if="isLightboxOpen"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
+      @click.self="closeLightbox"
+    >
+      <!-- Close button -->
+      <button
+        @click="closeLightbox"
+        class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
+      >
+        <svg
+          class="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+
+      <!-- Navigation buttons -->
+      <button
+        v-if="product?.images && product.images.length > 1"
+        @click="prevImage"
+        class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+      >
+        <svg
+          class="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          ></path>
+        </svg>
+      </button>
+
+      <button
+        v-if="product?.images && product.images.length > 1"
+        @click="nextImage"
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+      >
+        <svg
+          class="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </button>
+
+      <!-- Image container -->
+      <div class="max-w-[90vw] max-h-[90vh] flex items-center justify-center">
+        <img
+          v-if="product?.images?.[currentImageIndex]"
+          :src="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${product.images[currentImageIndex].image}`"
+          alt="Imagem do Produto"
+          class="max-w-full max-h-full object-contain"
+        />
+      </div>
+
+      <!-- Image counter -->
+      <div
+        v-if="product?.images && product.images.length > 1"
+        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm"
+      >
+        {{ currentImageIndex + 1 }} / {{ product.images.length }}
+      </div>
+    </div>
+  </Teleport>
+
   <FAQSection />
 </template>
