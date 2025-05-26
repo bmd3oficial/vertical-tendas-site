@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 import { useApiStore } from "@/stores/api";
-import MoreProducts from "@/components/MoreProducts.vue";
 
 const apiStore = useApiStore();
 const about = computed(() => apiStore.about);
@@ -13,7 +12,8 @@ onMounted(async () => {
 
 <template>
   <section class="px-4 sm:px-8 lg:px-16 py-16">
-    <div>
+    <!-- Container com largura máxima de 1400px -->
+    <div class="max-w-[1400px] mx-auto">
       <h1 class="font-bold text-[40px] text-[#1B1E1E]">Sobre</h1>
 
       <div v-if="about">

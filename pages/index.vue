@@ -9,14 +9,15 @@
     <!-- Hero Section -->
     <HomeHeroSection />
 
-    <!-- Products Section -->
-    <HomeProductsSection />
+    <div class="max-w-[1400px] mx-auto">
+      <HomeProductsSection />
 
-    <!-- Use Cases Section -->
-    <HomeUseCasesSection />
+      <!-- Use Cases Section -->
+      <HomeUseCasesSection />
 
-    <!-- Testimonials Section -->
-    <HomeTestimonialsSection />
+      <!-- Testimonials Section -->
+      <HomeTestimonialsSection />
+    </div>
 
     <!-- FAQ Section -->
     <HomeFAQSection />
