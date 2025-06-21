@@ -19,12 +19,12 @@ onMounted(async () => {
       :key="index"
       class="flex-1 w-full bg-[#e9e9e9] rounded-[20px] overflow-hidden border-[#eaeaea]"
     >
-      <a href="">
+      <a :href="anuncio.link" target="_blank" rel="noopener noreferrer">
         <div
           class="relative w-full min-h-[400px] sm:min-h-[450px] md:min-h-[520px] group"
         >
           <img
-            :src="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${anuncio.image}`"
+            :src="`${apiStore.API_URL_PRODUCT}/${anuncio.image}`"
             :alt="anuncio.title"
             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-300"
           />
