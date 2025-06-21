@@ -50,11 +50,11 @@ function splitTitle(title: string) {
               <a :href="banner.link" class="block w-full h-full">
                 <picture class="w-full h-full">
                   <source
-                    :srcset="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${banner.imageMobile}`"
+                    :srcset="banner.imageMobile"
                     media="(max-width: 768px)"
                   />
                   <img
-                    :src="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${banner.image}`"
+                    :src="banner.image"
                     :alt="banner.alt"
                     class="w-full h-full object-cover"
                   />
