@@ -19,7 +19,7 @@ onMounted(async () => {
       :key="index"
       class="flex-1 w-full bg-[#e9e9e9] rounded-[20px] overflow-hidden border-[#eaeaea]"
     >
-      <a :href="anuncio.link" target="_blank" rel="noopener noreferrer">
+      <a :href="anuncio.link">
         <div
           class="relative w-full min-h-[400px] sm:min-h-[450px] md:min-h-[520px] group"
         >
