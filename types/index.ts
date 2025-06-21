@@ -35,6 +35,11 @@ export interface IBanner {
   title: string;
   subtitle: string;
   image: string;
+  alt: string;
+  link: string;
+  titleMobile: string;
+  subtitleMobile: string;
+  imageMobile: string;
 }
 
 export interface IRegister {
