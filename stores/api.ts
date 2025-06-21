@@ -35,6 +35,7 @@ export const useApiStore = defineStore("api", {
     about: {},
     contact: {} as IContact,
     anuncios: [] as IAnuncio[],
+    API_URL_PRODUCT: useRuntimeConfig().public.API_PRODUCT_URL as string,
   }),
 
   actions: {
@@ -58,7 +59,7 @@ export const useApiStore = defineStore("api", {
         return response.data;
       } catch (err: any) {
         this.error = err.response?.data?.message || "Erro ao buscar banners";
-        toast.error(this.error);
+        toast.error(this.error ?? "Erro ao buscar banners");
         throw this.error;
       } finally {
         this.loadingBanner = false;
@@ -83,7 +84,7 @@ export const useApiStore = defineStore("api", {
       } catch (err: any) {
         this.error =
           err.response?.data?.message || "Erro ao buscar depoimentos";
-        toast.error(this.error);
+        toast.error(this.error ?? "Erro ao buscar depoimentos");
         throw this.error;
       } finally {
         this.loadingTestimonial = false;
@@ -103,8 +104,8 @@ export const useApiStore = defineStore("api", {
         this.questions = response.data;
         return response.data;
       } catch (err: any) {
-        this.error = err.response?.data?.message || "Erro ao buscar perguntas";
-        toast.error(this.error);
+        this.error = err.response?.data?.message || "Erro ao buscar questões";
+        toast.error(this.error ?? "Erro ao buscar questões");
         throw this.error;
       } finally {
         this.loadingQuestion = false;
@@ -123,8 +124,8 @@ export const useApiStore = defineStore("api", {
         this.products = response.data;
         return response.data;
       } catch (err: any) {
-        this.error = err.response?.data?.error || "Erro ao buscar produtos";
-        toast.error(this.error);
+        this.error = err.response?.data?.message || "Erro ao buscar produtos";
+        toast.error(this.error ?? "Erro ao buscar produtos");
         throw this.error;
       } finally {
         this.loadingProduct = false;
@@ -147,7 +148,7 @@ export const useApiStore = defineStore("api", {
         return response.data;
       } catch (err: any) {
         this.error = err.response?.data?.error || "Erro ao buscar produto";
-        toast.error(this.error);
+        toast.error(this.error ?? "Erro ao buscar produto");
         throw this.error;
       } finally {
         this.loadingProduct = false;
@@ -168,7 +169,7 @@ export const useApiStore = defineStore("api", {
       } catch (err: any) {
         this.error =
           err.response?.data?.message || "Erro ao buscar informações";
-        toast.error(this.error);
+        toast.error(this.error ?? "Erro ao buscar informações");
         throw this.error;
       } finally {
         this.loading = false;
@@ -188,7 +189,7 @@ export const useApiStore = defineStore("api", {
       } catch (err: any) {
         this.error =
           err.response?.data?.message || "Erro ao buscar informações";
-        toast.error(this.error);
+        toast.error(this.error ?? "Erro ao buscar informações");
         throw this.error;
       } finally {
         this.loading = false;
@@ -208,7 +209,7 @@ export const useApiStore = defineStore("api", {
       } catch (err: any) {
         this.error =
           err.response?.data?.message || "Erro ao buscar informações";
-        toast.error(this.error);
+        toast.error(this.error ?? "Erro ao buscar informações");
         throw this.error;
       } finally {
         this.loading = false;
