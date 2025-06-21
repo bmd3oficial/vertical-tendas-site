@@ -13,6 +13,11 @@ import type {
   ITestimonial,
 } from "~/types";
 
+interface ISiteSettings {
+  id: string;
+  googleTagId: string | null;
+}
+
 export const useApiStore = defineStore("api", {
   state: () => ({
     loading: false,
@@ -35,6 +40,7 @@ export const useApiStore = defineStore("api", {
     about: {},
     contact: {} as IContact,
     anuncios: [] as IAnuncio[],
+    siteSettings: {} as ISiteSettings,
     API_URL_PRODUCT: useRuntimeConfig().public.API_PRODUCT_URL as string,
   }),
 
@@ -185,6 +191,26 @@ export const useApiStore = defineStore("api", {
         });
 
         this.contact = response.data;
+        return response.data;
+      } catch (err: any) {
+        this.error =
+          err.response?.data?.message || "Erro ao buscar informações";
+        toast.error(this.error ?? "Erro ao buscar informações");
+        throw this.error;
+      } finally {
+        this.loading = false;
+      }
+    },
+    async getSiteSettings() {
+      const apiBase = useRuntimeConfig().public.API_URL;
+      try {
+        this.loading = true;
+        this.error = null;
+        const response = await axios.get<ISiteSettings>(`${apiBase}/site-settings`, {
+          headers: this.getHeaders(),
+        });
+
+        this.siteSettings = response.data;
         return response.data;
       } catch (err: any) {
         this.error =
