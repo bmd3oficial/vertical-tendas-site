@@ -47,15 +47,21 @@ function splitTitle(title: string) {
               :key="index"
               class="relative w-full h-[500px] md:h-[728px]"
             >
-              <div
-                class="w-full h-full bg-cover bg-center bg-no-repeat"
-                :style="{
-                  backgroundImage: `url('https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${banner.image}')`,
-                }"
-              >
-                <!-- TEXTO FIXO -->
+              <a :href="banner.link" class="block w-full h-full">
+                <picture class="w-full h-full">
+                  <source
+                    :srcset="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${banner.imageMobile}`"
+                    media="(max-width: 768px)"
+                  />
+                  <img
+                    :src="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${banner.image}`"
+                    :alt="banner.alt"
+                    class="w-full h-full object-cover"
+                  />
+                </picture>
+                <!-- TEXTO DESKTOP -->
                 <div
-                  class="absolute top-1/2 left-4 transform -translate-y-1/2 md:left-20 max-w-xl px-2"
+                  class="absolute top-1/2 left-4 transform -translate-y-1/2 md:left-20 max-w-xl px-2 hidden md:block"
                 >
                   <h1
                     class="text-white text-2xl sm:text-3xl md:text-5xl font-bold leading-snug tracking-tight"
@@ -75,7 +81,21 @@ function splitTitle(title: string) {
                     {{ banner.subtitle }}
                   </p>
                 </div>
-              </div>
+                <!-- TEXTO MOBILE -->
+                <div
+                  class="absolute top-1/2 left-4 transform -translate-y-1/2 max-w-xl px-2 md:hidden"
+                >
+                  <h1
+                    class="text-white text-2xl sm:text-3xl font-bold leading-snug tracking-tight"
+                    v-if="banner.titleMobile"
+                  >
+                    {{ banner.titleMobile }}
+                  </h1>
+                  <p class="mt-4 text-white text-base">
+                    {{ banner.subtitleMobile }}
+                  </p>
+                </div>
+              </a>
             </CarouselItem>
           </template>
           <template v-else>
