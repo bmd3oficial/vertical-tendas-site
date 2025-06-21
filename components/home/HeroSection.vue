@@ -11,6 +11,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const apiStore = useApiStore();
 
+const STORAGE_URL = 'https://dbs-minio.b5gal9.easypanel.host/verticaltendas';
+
+const getFullImageUrl = (path: string | null | undefined): string => {
+	if (!path) return '';
+	if (path.startsWith('http')) return path;
+	return `${STORAGE_URL}/${path}`;
+};
+
 const banners = computed(() => apiStore.banners);
 const loadingBanner = computed(() => apiStore.loadingBanner);
 
@@ -50,11 +58,11 @@ function splitTitle(title: string) {
               <a :href="banner.link" class="block w-full h-full">
                 <picture class="w-full h-full">
                   <source
-                    :srcset="banner.imageMobile"
+                    :srcset="getFullImageUrl(banner.imageMobile)"
                     media="(max-width: 768px)"
                   />
                   <img
-                    :src="banner.image"
+                    :src="getFullImageUrl(banner.image)"
                     :alt="banner.alt"
                     class="w-full h-full object-cover"
                   />
