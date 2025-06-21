@@ -179,6 +179,13 @@ function ensureHttps(url: string): string {
                     >
                       {{ apiStore.contact.whatsapp }}
                     </a>
+                    <a
+                      href="https://wa.me/551142777799"
+                      target="_blank"
+                      class="text-[#7c7c7c] tracking-[-0.40px] hover:text-green-600 transition-colors"
+                    >
+                      (11) 4277-7799
+                    </a>
                   </div>
 
                   <div v-if="apiStore.contact.whatsappalternative" class="flex items-center gap-2">
