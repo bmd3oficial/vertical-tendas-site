@@ -49,6 +49,7 @@ export interface IAbout {
 
 export interface IContact {
   whatsapp: string;
+  whatsappalternative?: string;
   email: string;
   address: string;
   instagram: string;
