@@ -25,7 +25,7 @@ export default defineNuxtConfig({
         "https://services-verticaltendasbackend.b5gal9.easypanel.host",
       API_PRODUCT_URL:
         process.env.NUXT_PUBLIC_API_PRODUCT_URL ||
-        "https://services-verticaltendasbackend.b5gal9.easypanel.host",
+        "https://dbs-minio.b5gal9.easypanel.host/verticaltendas",
     },
   },
 });
