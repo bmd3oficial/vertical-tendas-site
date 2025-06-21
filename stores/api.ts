@@ -197,6 +197,7 @@ export const useApiStore = defineStore("api", {
     },
     async getAnuncios() {
       const apiBase = useRuntimeConfig().public.API_URL;
+      const API_URL_PRODUCT = useRuntimeConfig().public.API_PRODUCT_URL;
       try {
         this.loading = true;
         this.error = null;
@@ -204,8 +205,13 @@ export const useApiStore = defineStore("api", {
           headers: this.getHeaders(),
         });
 
-        this.anuncios = response.data;
-        return response.data;
+        this.anuncios = response.data.map((anuncio) => ({
+          ...anuncio,
+          image: anuncio.image.startsWith("http")
+            ? anuncio.image
+            : `${API_URL_PRODUCT}/${anuncio.image}`,
+        }));
+        return this.anuncios;
       } catch (err: any) {
         this.error =
           err.response?.data?.message || "Erro ao buscar informações";
