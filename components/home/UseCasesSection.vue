@@ -24,7 +24,7 @@ onMounted(async () => {
           class="relative w-full min-h-[400px] sm:min-h-[450px] md:min-h-[520px] group"
         >
           <img
-            :src="`${apiStore.API_URL_PRODUCT}/${anuncio.image}`"
+            :src="anuncio.image"
             :alt="anuncio.title"
             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-300"
           />
