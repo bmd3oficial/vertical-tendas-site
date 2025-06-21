@@ -21,6 +21,10 @@ const products = computed(() => apiStore.products);
 const isLightboxOpen = ref(false);
 const currentImageIndex = ref(0);
 
+// Product selection state
+const selectedColor = ref<string>('');
+const selectedSize = ref<string>('');
+
 const useCases = ref<
   {
     id: string;
@@ -30,6 +34,154 @@ const useCases = ref<
     slug: string;
   }[]
 >([]);
+
+// Function to get color name from hex/color value
+function getColorName(color: string): string {
+  const colorMap: { [key: string]: string } = {
+    // Cores básicas
+    '#ffffff': 'Branco',
+    '#000000': 'Preto',
+    '#ff0000': 'Vermelho',
+    '#00ff00': 'Verde',
+    '#0000ff': 'Azul',
+    '#ffff00': 'Amarelo',
+    '#ff00ff': 'Magenta',
+    '#00ffff': 'Ciano',
+    '#808080': 'Cinza',
+    '#800000': 'Marrom',
+    '#008000': 'Verde Escuro',
+    '#000080': 'Azul Marinho',
+    '#808000': 'Oliva',
+    '#800080': 'Roxo',
+    '#008080': 'Verde Azulado',
+    '#c0c0c0': 'Prata',
+    
+    // Tons de azul
+    '#1e90ff': 'Azul Dodger',
+    '#4169e1': 'Azul Royal',
+    '#0066cc': 'Azul',
+    '#87ceeb': 'Azul Céu',
+    '#4682b4': 'Azul Aço',
+    '#6495ed': 'Azul Milho',
+    '#00bfff': 'Azul Céu Profundo',
+    
+    // Tons de verde
+    '#32cd32': 'Verde Lima',
+    '#228b22': 'Verde Floresta',
+    '#90ee90': 'Verde Claro',
+    '#00ff7f': 'Verde Primavera',
+    '#98fb98': 'Verde Pálido',
+    '#20b2aa': 'Verde Mar',
+    
+    // Tons de vermelho
+    '#dc143c': 'Vermelho Carmesim',
+    '#b22222': 'Vermelho Tijolo',
+    '#ff6347': 'Vermelho Tomate',
+    '#ff4500': 'Vermelho Laranja',
+    '#cd5c5c': 'Vermelho Indiano',
+    
+    // Tons de amarelo/laranja
+    '#ffa500': 'Laranja',
+    '#ff8c00': 'Laranja Escuro',
+    '#ffd700': 'Dourado',
+    '#ffff99': 'Amarelo Claro',
+    '#ffe135': 'Amarelo Banana',
+    
+    // Tons de roxo/rosa
+    '#dda0dd': 'Rosa Ameixa',
+    '#ee82ee': 'Violeta',
+    '#da70d6': 'Orquídea',
+    '#ba55d3': 'Orquídea Média',
+    '#9370db': 'Roxo Médio',
+    '#8a2be2': 'Azul Violeta',
+    
+    // Tons de marrom/bege
+    '#d2691e': 'Chocolate',
+    '#cd853f': 'Peru',
+    '#daa520': 'Vara de Ouro',
+    '#b8860b': 'Vara de Ouro Escura',
+    '#bc8f8f': 'Rosa Marrom',
+    '#f4a460': 'Marrom Arenoso',
+    '#d2b48c': 'Bronzeado',
+    '#deb887': 'Madeira Escura',
+    
+    // Tons de cinza
+    '#696969': 'Cinza Escuro',
+    '#778899': 'Cinza Ardósia Claro',
+    '#708090': 'Cinza Ardósia',
+    '#2f4f4f': 'Cinza Ardósia Escuro',
+    '#a9a9a9': 'Cinza Escuro',
+    '#d3d3d3': 'Cinza Claro',
+    
+    // Nomes de cores em inglês (caso venham assim)
+    'white': 'Branco',
+    'black': 'Preto',
+    'red': 'Vermelho',
+    'green': 'Verde',
+    'blue': 'Azul',
+    'yellow': 'Amarelo',
+    'orange': 'Laranja',
+    'purple': 'Roxo',
+    'pink': 'Rosa',
+    'brown': 'Marrom',
+    'gray': 'Cinza',
+    'grey': 'Cinza',
+  };
+  
+  // Converte para lowercase para comparação
+  const lowerColor = color.toLowerCase();
+  
+  // Verifica se existe no mapa
+  if (colorMap[lowerColor]) {
+    return colorMap[lowerColor];
+  }
+  
+  // Se não encontrar, tenta aproximar por similaridade de hex
+  if (color.startsWith('#')) {
+    const hex = color.toLowerCase();
+    
+    // Aproximações básicas por faixas de cor
+    if (hex.includes('ff0000') || hex.includes('f00')) return 'Vermelho';
+    if (hex.includes('00ff00') || hex.includes('0f0')) return 'Verde';
+    if (hex.includes('0000ff') || hex.includes('00f')) return 'Azul';
+    if (hex.includes('ffff00') || hex.includes('ff0')) return 'Amarelo';
+    if (hex.includes('ffffff') || hex.includes('fff')) return 'Branco';
+    if (hex.includes('000000') || hex.includes('000')) return 'Preto';
+    
+    // Aproximações por padrões
+    if (hex.match(/^#[0-9a-f]{2}0{4}$/)) return 'Vermelho';
+    if (hex.match(/^#0{2}[0-9a-f]{2}0{2}$/)) return 'Verde';
+    if (hex.match(/^#0{4}[0-9a-f]{2}$/)) return 'Azul';
+  }
+  
+  // Se não conseguir identificar, retorna o valor original
+  return color;
+}
+
+// WhatsApp link computed property
+const whatsappLink = computed(() => {
+  if (!product.value?.name) return '';
+  
+  const phone = '5511958430884';
+  let message = `Olá! Gostaria de mais informações sobre ${product.value.name}.`;
+  
+  // Add selected characteristics to message
+  const characteristics = [];
+  if (selectedColor.value) {
+    characteristics.push(`Cor: ${getColorName(selectedColor.value)}`);
+  }
+  if (selectedSize.value) {
+    characteristics.push(`Tamanho: ${selectedSize.value}`);
+  }
+  
+  if (characteristics.length > 0) {
+    message += `\n\nCaracterísticas selecionadas:\n${characteristics.join('\n')}`;
+  }
+  
+  const encodedMessage = encodeURIComponent(message);
+  
+  return `https://api.whatsapp.com/send/?phone=${phone}&text=${encodedMessage}&type=phone_number&app_absent=0`;
+});
 
 function getRandomItems<T>(arr: T[], count: number): T[] {
   const shuffled = [...arr].sort(() => 0.5 - Math.random());
@@ -92,6 +244,12 @@ watchEffect(() => {
       image: product.images[0]?.image || "/fallback.png",
     }));
   }
+});
+
+// Reset selections when product changes
+watch(() => product.value, () => {
+  selectedColor.value = '';
+  selectedSize.value = '';
 });
 
 onMounted(async () => {
@@ -177,29 +335,53 @@ onUnmounted(() => {
                 <div v-if="product.colors && product.colors.length > 0">
                   <h2 class="font-semibold mb-1">Cores:</h2>
                   <div class="flex flex-wrap gap-2">
-                    <div
+                    <button
                       v-for="(color, index) in product.colors"
                       :key="index"
-                      class="w-6 h-6 rounded border"
+                      @click="selectedColor = color"
+                      class="w-8 h-8 rounded border-2 transition-all duration-200 hover:scale-110"
+                      :class="{
+                        'border-gray-300': selectedColor !== color,
+                        'border-black border-4': selectedColor === color,
+                      }"
                       :style="{ backgroundColor: color }"
-                    ></div>
+                      :title="`Selecionar cor: ${getColorName(color)}`"
+                    >
+                      <span v-if="selectedColor === color" class="block w-full h-full rounded flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                      </span>
+                    </button>
                   </div>
+                  <p v-if="selectedColor" class="text-xs text-gray-600 mt-1">
+                    Cor selecionada: {{ getColorName(selectedColor) }}
+                  </p>
                 </div>
 
                 <div v-if="product.sizes && product.sizes?.length > 0">
                   <h2 class="font-semibold mb-1">Medidas:</h2>
                   <div class="flex flex-wrap gap-2">
-                    <span
-                      style="color: #000"
+                    <button
                       v-for="(size, index) in product.sizes"
                       :key="index"
-                      class="px-3 py-1 border rounded bg-white text-xs sm:text-sm"
-                      >{{ size }}</span
+                      @click="selectedSize = size"
+                      class="px-3 py-1 border-2 rounded transition-all duration-200 text-xs sm:text-sm hover:scale-105"
+                      :class="{
+                        'border-gray-300 bg-white text-black': selectedSize !== size,
+                        'border-green-500 bg-green-500 text-white': selectedSize === size,
+                      }"
+                      :title="`Selecionar tamanho: ${size}`"
                     >
+                      {{ size }}
+                    </button>
                   </div>
+                  <p v-if="selectedSize" class="text-xs text-gray-600 mt-1">
+                    Tamanho selecionado: {{ selectedSize }}
+                  </p>
                 </div>
 
-                <div>
+                <div v-if="product.materials">
                   <h2 class="font-semibold mb-1 text-[#000000]">Materiais:</h2>
                   <div
                     class="text-sm text-[#000000"
@@ -209,8 +391,33 @@ onUnmounted(() => {
                 </div>
               </div>
 
+              <!-- Selected characteristics summary -->
+              <div v-if="selectedColor || selectedSize" class="mt-4 p-3 bg-gray-50 rounded-lg border">
+                <h3 class="font-semibold text-sm text-gray-700 mb-2">Suas seleções:</h3>
+                <div class="space-y-1">
+                  <div v-if="selectedColor" class="flex items-center gap-2 text-sm">
+                    <span class="font-medium">Cor:</span>
+                    <div class="flex items-center gap-1">
+                      <div 
+                        class="w-4 h-4 rounded border"
+                        :style="{ backgroundColor: selectedColor }"
+                      ></div>
+                      <span>{{ getColorName(selectedColor) }}</span>
+                    </div>
+                  </div>
+                  <div v-if="selectedSize" class="flex items-center gap-2 text-sm">
+                    <span class="font-medium">Tamanho:</span>
+                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">{{ selectedSize }}</span>
+                  </div>
+                </div>
+              </div>
+
               <!-- CTA button with improved responsive sizing -->
-              <a href="">
+              <a 
+                :href="whatsappLink" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
                 <button
                   class="mt-6 sm:mt-8 lg:mt-10 bg-[#18ab1a] text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
                 >
