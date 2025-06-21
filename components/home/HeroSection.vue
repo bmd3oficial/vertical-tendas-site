@@ -85,7 +85,7 @@ function splitTitle(title: string) {
                       splitTitle(banner.title).part3
                     }}</span>
                   </h1>
-                  <p class="mt-4 text-white text-base md:text-xl">
+                  <p v-if="banner.subtitle" class="mt-4 text-white text-base md:text-xl">
                     {{ banner.subtitle }}
                   </p>
                 </div>
@@ -99,7 +99,7 @@ function splitTitle(title: string) {
                   >
                     {{ banner.titleMobile }}
                   </h1>
-                  <p class="mt-4 text-white text-base">
+                  <p v-if="banner.subtitleMobile" class="mt-4 text-white text-base">
                     {{ banner.subtitleMobile }}
                   </p>
                 </div>

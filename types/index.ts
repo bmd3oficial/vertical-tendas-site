@@ -32,13 +32,13 @@ export interface IQuestion {
 
 export interface IBanner {
   id: string;
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   image: string;
   alt: string;
   link: string;
-  titleMobile: string;
-  subtitleMobile: string;
+  titleMobile?: string;
+  subtitleMobile?: string;
   imageMobile: string;
 }
 
