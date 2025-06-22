@@ -74,6 +74,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
       }, 5000);
     }, 1000);
   }
+
+  // Definir meta tags padrão do site
+  const title = apiStore.siteSettings.title || "Vertical Tendas";
+  const description =
+    apiStore.siteSettings.description ||
+    "Cobertura Certa. Estrutura Forte. Confiança Vertical.";
+  const keywords = apiStore.siteSettings.keywords || undefined;
+
+  useHead({
+    title,
+    meta: [
+      { name: "description", content: description },
+      ...(keywords ? [{ name: "keywords", content: keywords }] : []),
+    ],
+  });
 });
 </script>
 

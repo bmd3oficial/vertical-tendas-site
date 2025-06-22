@@ -88,6 +88,17 @@ const navLinks = [
               </Button>
             </a>
           </SheetClose>
+
+          <!-- Telefone fixo -->
+          <SheetClose>
+            <a
+              v-if="apiStore.contact.whatsappalternative"
+              :href="`tel:${apiStore.contact.whatsappalternative.replace(/\D/g, '')}`"
+              class="w-full mt-2 flex items-center justify-center text-[#1b1e1e] bg-gray-100 hover:bg-gray-200 rounded-lg px-[30px] py-3 h-auto transition-colors"
+            >
+              {{ apiStore.contact.whatsappalternative }}
+            </a>
+          </SheetClose>
         </div>
       </SheetHeader>
     </SheetContent>

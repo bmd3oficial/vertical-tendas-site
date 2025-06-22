@@ -16,6 +16,9 @@ import type {
 interface ISiteSettings {
   id: string;
   googleTagId: string | null;
+  title: string | null;
+  description: string | null;
+  keywords: string | null;
 }
 
 export const useApiStore = defineStore("api", {
@@ -38,9 +41,24 @@ export const useApiStore = defineStore("api", {
     loadingBanner: false,
     //
     about: {},
-    contact: {} as IContact,
+    contact: {
+      whatsapp: '',
+      whatsappalternative: '',
+      email: '',
+      address: '',
+      instagram: '',
+      facebook: '',
+      youtube: '',
+      tiktok: '',
+    } as IContact,
     anuncios: [] as IAnuncio[],
-    siteSettings: {} as ISiteSettings,
+    siteSettings: {
+      id: '',
+      googleTagId: null,
+      title: null,
+      description: null,
+      keywords: null,
+    } as ISiteSettings,
     API_URL_PRODUCT: useRuntimeConfig().public.API_PRODUCT_URL as string,
   }),
 
