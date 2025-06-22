@@ -19,6 +19,9 @@ interface ISiteSettings {
   title: string | null;
   description: string | null;
   keywords: string | null;
+  ogImage: string | null;
+  canonicalUrl: string | null;
+  twitterHandle: string | null;
 }
 
 export const useApiStore = defineStore("api", {
@@ -58,6 +61,9 @@ export const useApiStore = defineStore("api", {
       title: null,
       description: null,
       keywords: null,
+      ogImage: null,
+      canonicalUrl: null,
+      twitterHandle: null,
     } as ISiteSettings,
     API_URL_PRODUCT: useRuntimeConfig().public.API_PRODUCT_URL as string,
   }),

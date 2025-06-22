@@ -81,13 +81,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
     apiStore.siteSettings.description ||
     "Cobertura Certa. Estrutura Forte. Confiança Vertical.";
   const keywords = apiStore.siteSettings.keywords || undefined;
+  const ogImage = apiStore.siteSettings.ogImage || undefined;
+  const canonicalUrl = apiStore.siteSettings.canonicalUrl || undefined;
+  const twitterHandle = apiStore.siteSettings.twitterHandle || undefined;
 
   useHead({
     title,
     meta: [
       { name: "description", content: description },
       ...(keywords ? [{ name: "keywords", content: keywords }] : []),
+      ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      ...(twitterHandle
+        ? [
+            { name: "twitter:card", content: "summary_large_image" },
+            { name: "twitter:site", content: twitterHandle },
+            { name: "twitter:title", content: title },
+            { name: "twitter:description", content: description },
+            ...(ogImage ? [{ name: "twitter:image", content: ogImage }] : []),
+          ]
+        : []),
     ],
+    link: canonicalUrl ? [{ rel: "canonical", href: canonicalUrl }] : [],
   });
 });
 </script>
