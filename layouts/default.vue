@@ -181,9 +181,12 @@ function ensureHttps(url: string): string {
                         {{ apiStore.contact.whatsapp }}
                       </a>
                     </div>
-                    <div class="flex items-center gap-2">
-                      <a class="text-[#7c7c7c] tracking-[-0.40px] hover:text-green-600 transition-colors">
-                        (11) 4277-7799
+                    <div v-if="apiStore.contact.whatsappalternative" class="flex items-center gap-2">
+                      <a
+                        :href="`tel:${apiStore.contact.whatsappalternative.replace(/\D/g, '')}`"
+                        class="text-[#7c7c7c] tracking-[-0.40px] hover:text-green-600 transition-colors"
+                      >
+                        {{ apiStore.contact.whatsappalternative }}
                       </a>
                     </div>
                   </div>
