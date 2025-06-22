@@ -116,25 +116,5 @@ function splitTitle(title: string) {
         <CarouselNext />
       </Carousel>
     </div>
-
-    <div
-      v-else
-      class="relative w-full min-h-[500px] md:min-h-[728px] bg-[url('/mask-group.png')] bg-cover bg-center bg-no-repeat"
-    >
-      <div
-        class="absolute top-1/2 left-4 transform -translate-y-1/2 md:left-20 max-w-xl px-2"
-      >
-        <h1
-          class="text-white text-2xl sm:text-3xl md:text-5xl font-bold leading-snug tracking-tight"
-        >
-          <span class="font-bold">A </span>
-          <span class="text-[#efb511] font-bold">Tenda Certa </span>
-          <span>para Condições Extremas.</span>
-        </h1>
-        <p class="mt-4 text-white text-base md:text-xl">
-          Conheça a Tenda Piramidal.
-        </p>
-      </div>
-    </div>
   </section>
 </template>
