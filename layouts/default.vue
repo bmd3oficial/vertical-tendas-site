@@ -110,17 +110,13 @@ function ensureHttps(url: string): string {
               </h3>
 
               <ul>
-                <li
-                  v-for="product in footerProducts.slice(0, 5)"
-                  :key="product.id"
-                >
-                  <NuxtLink
-                    :to="`/produto/${product.slug}`"
-                    class="text-[#7c7c7c] tracking-[-0.40px]"
-                  >
-                    {{ product.name }}
-                  </NuxtLink>
-                </li>
+                <li><NuxtLink to="/produto/tendapiramidal" class="text-[#7c7c7c] tracking-[-0.40px]">Tenda Piramidal</NuxtLink></li>
+                <li><NuxtLink to="/produto/tendasanfonada" class="text-[#7c7c7c] tracking-[-0.40px]">Tenda Sanfonada</NuxtLink></li>
+                <li><NuxtLink to="/produto/tenda_personalizada" class="text-[#7c7c7c] tracking-[-0.40px]">Tenda Personalizada</NuxtLink></li>
+                <li><NuxtLink to="/produto/geocarpa" class="text-[#7c7c7c] tracking-[-0.40px]">Geocarpa</NuxtLink></li>
+                <li><NuxtLink to="/produto/galpaoemlona" class="text-[#7c7c7c] tracking-[-0.40px]">Galpão em Lona</NuxtLink></li>
+                <li><NuxtLink to="/produto/gradil" class="text-[#7c7c7c] tracking-[-0.40px]">Gradil</NuxtLink></li>
+                <li><NuxtLink to="/produto/pisos" class="text-[#7c7c7c] tracking-[-0.40px]">Piso para Palco</NuxtLink></li>
               </ul>
             </div>
 
@@ -181,11 +177,7 @@ function ensureHttps(url: string): string {
                         {{ apiStore.contact.whatsapp }}
                       </a>
                     </div>
-                    <div class="flex items-center gap-2">
-                      <a class="text-[#7c7c7c] tracking-[-0.40px] hover:text-green-600 transition-colors">
-                        (11) 4277-7799
-                      </a>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
