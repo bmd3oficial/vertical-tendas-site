@@ -116,7 +116,7 @@ function ensureHttps(url: string): string {
                 <li><NuxtLink to="/produto/geocarpa" class="text-[#7c7c7c] tracking-[-0.40px]">Geocarpa</NuxtLink></li>
                 <li><NuxtLink to="/produto/galpaoemlona" class="text-[#7c7c7c] tracking-[-0.40px]">Galpão em Lona</NuxtLink></li>
                 <li><NuxtLink to="/produto/gradil" class="text-[#7c7c7c] tracking-[-0.40px]">Gradil</NuxtLink></li>
-                <li><NuxtLink to="/produto/pisos" class="text-[#7c7c7c] tracking-[-0.40px]">Pisos para Palco</NuxtLink></li>
+                <li><NuxtLink to="/produto/pisos" class="text-[#7c7c7c] tracking-[-0.40px]">Pisos</NuxtLink></li>
               </ul>
             </div>
 
