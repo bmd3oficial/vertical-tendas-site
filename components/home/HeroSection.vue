@@ -40,7 +40,7 @@ function splitTitle(title: string) {
   <section class="relative w-full bg-white overflow-hidden">
     <div
       v-if="banners.length > 0"
-      class="relative w-full min-h-[500px] md:min-h-[728px] overflow-hidden"
+      class="relative w-full overflow-hidden"
     >
       <Carousel
         class="w-full h-full"
@@ -53,10 +53,10 @@ function splitTitle(title: string) {
             <CarouselItem
               v-for="(banner, index) in banners"
               :key="index"
-              class="relative w-full h-[500px] md:h-[728px]"
+              class="relative w-full"
             >
-              <a :href="banner.link" class="block w-full h-full">
-                <picture class="w-full h-full">
+              <a :href="banner.link" class="block w-full">
+                <picture class="w-full">
                   <source
                     :srcset="getFullImageUrl(banner.imageMobile)"
                     media="(max-width: 768px)"
@@ -64,7 +64,7 @@ function splitTitle(title: string) {
                   <img
                     :src="getFullImageUrl(banner.image)"
                     :alt="banner.alt"
-                    class="w-full h-full object-contain md:object-cover"
+                    class="w-full h-auto object-contain"
                   />
                 </picture>
                 <!-- TEXTO DESKTOP -->
@@ -107,7 +107,7 @@ function splitTitle(title: string) {
             </CarouselItem>
           </template>
           <template v-else>
-            <CarouselItem class="relative w-full h-[500px] md:h-[728px]">
+            <CarouselItem class="relative w-full">
               <Skeleton class="w-full h-full" />
             </CarouselItem>
           </template>
