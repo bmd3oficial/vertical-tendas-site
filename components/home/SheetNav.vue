@@ -29,17 +29,7 @@ const navLinks = [
     <SheetTrigger class="flex md:hidden cursor-pointer"><Menu /></SheetTrigger>
     <SheetContent class="max-w-full w-full">
       <SheetHeader>
-        <SheetTitle>
-          <SheetClose>
-            <NuxtLink
-              :to="{ name: 'index' }"
-              class="mr-6 flex items-center space-x-2"
-            >
-              <img src="/logo.svg" alt="Logo" class="h-6" />
-            </NuxtLink>
-          </SheetClose>
-        </SheetTitle>
-        <SheetDescription> </SheetDescription>
+        
         <div class="grid gap-4 px-4 py-2">
           <div class="grid gap-4">
             <div v-for="item in navLinks" :key="item.href">
@@ -89,16 +79,7 @@ const navLinks = [
             </a>
           </SheetClose>
 
-          <!-- Telefone fixo -->
-          <SheetClose>
-            <a
-              v-if="apiStore.contact.whatsappalternative"
-              :href="`tel:${apiStore.contact.whatsappalternative.replace(/\D/g, '')}`"
-              class="w-full mt-2 flex items-center justify-center text-[#1b1e1e] bg-gray-100 hover:bg-gray-200 rounded-lg px-[30px] py-3 h-auto transition-colors"
-            >
-              {{ apiStore.contact.whatsappalternative }}
-            </a>
-          </SheetClose>
+          
         </div>
       </SheetHeader>
     </SheetContent>
