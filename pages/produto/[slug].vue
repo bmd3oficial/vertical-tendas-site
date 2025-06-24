@@ -300,7 +300,7 @@ onUnmounted(() => {
                   <img
                     :src="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${image.image}`"
                     alt="Imagem do Produto"
-                    class="w-full h-64 sm:h-80 md:h-96 lg:h-[472px] object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                    class="w-full h-64 sm:h-80 md:h-96 lg:h-[472px] object-contain rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
                     @click="openLightbox(index)"
                   />
                 </CarouselItem>
