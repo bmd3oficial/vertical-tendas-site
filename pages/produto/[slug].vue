@@ -578,7 +578,7 @@ onUnmounted(() => {
         </button>
 
         <!-- Image container -->
-        <div class="max-w-[90vw] max-h-[90vh] flex items-center justify-center">
+        <div class="w-full h-full flex items-center justify-center">
           <img
             v-if="product?.images?.[currentImageIndex]"
             :src="`https://dbs-minio.b5gal9.easypanel.host/verticaltendas/${product.images[currentImageIndex].image}`"
