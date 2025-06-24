@@ -23,7 +23,7 @@ function ensureHttps(url: string): string {
 </script>
 
 <template>
-  <div class="overflow-x-hidden">
+  <div>
     <header
       class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
     >
@@ -88,7 +88,7 @@ function ensureHttps(url: string): string {
       <slot />
     </main>
 
-    <footer class="w-full bg-[#fefaed] pt-20 pb-[54px] px-[68px]">
+    <footer class="w-full bg-[#fefaed] pt-20 pb-[54px] px-4 sm:px-6 md:px-8 lg:px-[68px]">
       <div class="max-w-[1400px] mx-auto">
         <div class="container mx-auto">
           <div
