@@ -513,7 +513,7 @@ onUnmounted(() => {
     <Teleport to="body">
       <div
         v-if="isLightboxOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
+        class="fixed inset-0 z-60 flex items-center justify-center bg-black bg-opacity-90"
         @click.self="closeLightbox"
       >
         <!-- Close button -->
