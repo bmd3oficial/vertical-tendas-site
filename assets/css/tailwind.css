@@ -122,4 +122,15 @@
   body {
     @apply bg-background text-foreground overflow-x-hidden;
   }
+  
+  /* Prevent any element from causing horizontal overflow */
+  * {
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  
+  /* Allow specific containers to exceed this limit when needed */
+  .container, .max-w-\[1400px\] {
+    max-width: none;
+  }
 }
