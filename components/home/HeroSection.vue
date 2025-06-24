@@ -48,15 +48,15 @@ function splitTitle(title: string) {
           loop: true,
         }"
       >
-        <CarouselContent>
+        <CarouselContent class="ml-0">
           <template v-if="!loadingBanner">
             <CarouselItem
               v-for="(banner, index) in banners"
               :key="index"
-              class="relative w-full"
+              class="relative w-full pl-0"
             >
               <a :href="banner.link" class="block w-full">
-                <picture class="w-full block">
+                <picture class="w-full">
                   <source
                     :srcset="getFullImageUrl(banner.imageMobile)"
                     media="(max-width: 768px)"
@@ -64,7 +64,7 @@ function splitTitle(title: string) {
                   <img
                     :src="getFullImageUrl(banner.image)"
                     :alt="banner.alt"
-                    class="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] object-cover"
+                    class="w-full h-auto object-contain"
                   />
                 </picture>
                 <!-- TEXTO DESKTOP -->
