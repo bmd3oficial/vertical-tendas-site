@@ -64,7 +64,7 @@ function splitTitle(title: string) {
                   <img
                     :src="getFullImageUrl(banner.image)"
                     :alt="banner.alt"
-                    class="w-full h-auto object-contain"
+                    class="w-full h-auto object-cover"
                   />
                 </picture>
                 <!-- TEXTO DESKTOP -->
