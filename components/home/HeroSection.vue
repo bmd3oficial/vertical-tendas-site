@@ -56,7 +56,7 @@ function splitTitle(title: string) {
               class="relative w-full"
             >
               <a :href="banner.link" class="block w-full">
-                <picture class="w-full">
+                <picture class="w-full block">
                   <source
                     :srcset="getFullImageUrl(banner.imageMobile)"
                     media="(max-width: 768px)"
@@ -64,7 +64,7 @@ function splitTitle(title: string) {
                   <img
                     :src="getFullImageUrl(banner.image)"
                     :alt="banner.alt"
-                    class="w-full h-auto object-cover"
+                    class="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] object-cover"
                   />
                 </picture>
                 <!-- TEXTO DESKTOP -->
