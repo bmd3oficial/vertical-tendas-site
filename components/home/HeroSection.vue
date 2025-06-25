@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import Autoplay from "embla-carousel-autoplay";
 
 const apiStore = useApiStore();
 
@@ -47,6 +48,11 @@ function splitTitle(title: string) {
         :opts="{
           loop: true,
         }"
+        :plugins="[
+          Autoplay({
+            delay: 4000,
+          }),
+        ]"
       >
         <CarouselContent class="ml-0">
           <template v-if="!loadingBanner">
