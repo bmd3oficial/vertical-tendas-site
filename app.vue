@@ -34,7 +34,32 @@ onMounted(async () => {
   const settings = apiStore.siteSettings;
   const cookiesAccepted = localStorage.getItem("cookiesAccepted") === "true";
 
-  if (settings.googleTagId && cookiesAccepted) {
+  if (settings.googleTagCode && cookiesAccepted) {
+    // Inserir snippet/script/URL completo fornecido pelo painel
+    try {
+      const temp = document.createElement('div');
+      temp.innerHTML = settings.googleTagCode;
+
+      // Adiciona scripts ao <head>
+      temp.querySelectorAll('script').forEach((scr) => {
+        const newScript = document.createElement('script');
+        if (scr.src) {
+          newScript.src = scr.src;
+          newScript.async = scr.async;
+        } else {
+          newScript.innerHTML = scr.innerHTML;
+        }
+        document.head.appendChild(newScript);
+      });
+
+      // Adiciona noscripts (ex.: iframe) no topo do <body>
+      temp.querySelectorAll('noscript').forEach((ns) => {
+        document.body.insertAdjacentHTML('afterbegin', ns.outerHTML);
+      });
+    } catch (e) {
+      console.error('Falha ao injetar Google Tag personalizado', e);
+    }
+  } else if (settings.googleTagId && cookiesAccepted) {
     useHead({
       script: [
         {

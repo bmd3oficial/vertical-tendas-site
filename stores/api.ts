@@ -16,6 +16,7 @@ import type {
 interface ISiteSettings {
   id: string;
   googleTagId: string | null;
+  googleTagCode: string | null;
   title: string | null;
   description: string | null;
   keywords: string | null;
@@ -58,6 +59,7 @@ export const useApiStore = defineStore("api", {
     siteSettings: {
       id: '',
       googleTagId: null,
+      googleTagCode: null,
       title: null,
       description: null,
       keywords: null,
