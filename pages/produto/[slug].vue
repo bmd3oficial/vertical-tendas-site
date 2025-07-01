@@ -152,10 +152,72 @@ function getColorName(color: string): string {
     if (hex.match(/^#[0-9a-f]{2}0{4}$/)) return 'Vermelho';
     if (hex.match(/^#0{2}[0-9a-f]{2}0{2}$/)) return 'Verde';
     if (hex.match(/^#0{4}[0-9a-f]{2}$/)) return 'Azul';
+
+    // Categorização adicional por matiz (HSL) para cores não mapeadas
+    const categoryName = categorizeHexColor(hex);
+    if (categoryName) return categoryName;
   }
   
   // Se não conseguir identificar, retorna o valor original
   return color;
+}
+
+// Função auxiliar para converter um código hexadecimal em um nome de cor genérico em português
+function categorizeHexColor(hex: string): string | null {
+  // Remove o caractere '#'
+  let value = hex.startsWith('#') ? hex.slice(1) : hex;
+  // Converte notação curta (#abc) para longa (#aabbcc)
+  if (value.length === 3) {
+    value = value
+      .split('')
+      .map((c) => c + c)
+      .join('');
+  }
+  if (value.length !== 6) return null;
+
+  const r = parseInt(value.slice(0, 2), 16) / 255;
+  const g = parseInt(value.slice(2, 4), 16) / 255;
+  const b = parseInt(value.slice(4, 6), 16) / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  let h = 0;
+  let s = 0;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      default:
+        h = (r - g) / d + 4;
+    }
+    h *= 60;
+  }
+
+  // Baixa saturação: decidir entre branco, preto ou cinza
+  if (s < 0.1) {
+    if (l > 0.9) return 'Branco';
+    if (l < 0.1) return 'Preto';
+    return 'Cinza';
+  }
+
+  if (h < 15 || h >= 345) return 'Vermelho';
+  if (h < 45) return 'Laranja';
+  if (h < 70) return 'Amarelo';
+  if (h < 155) return 'Verde';
+  if (h < 195) return 'Ciano';
+  if (h < 255) return 'Azul';
+  if (h < 285) return 'Roxo';
+  if (h < 345) return 'Rosa';
+
+  return null;
 }
 
 // WhatsApp link computed property
