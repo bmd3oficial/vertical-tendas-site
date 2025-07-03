@@ -81,6 +81,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           target="_blank"
         >
           <Button
+            id="estatico"
             variant="default2"
             class="bg-[#18ab1a] rounded-lg px-[30px] py-3 h-auto text-white hidden md:flex items-center cursor-pointer"
           >
