@@ -27,60 +27,45 @@ const openWhatsApp = () => {
   window.open(whatsappUrl, "_blank");
 };
 
+const handleWhatsAppClick = () => {
+  // Enviar evento para GTM
+  if (typeof window !== 'undefined' && (window as any).dataLayer) {
+    (window as any).dataLayer.push({
+      event: 'whatsapp_click',
+      event_category: 'engagement',
+      event_action: 'click',
+      event_label: 'floating_button',
+      value: 1
+    });
+  }
+  console.log('WhatsApp button clicked - event sent to GTM');
+};
+
 onMounted(async () => {
   await apiStore.getContact();
   await apiStore.getSiteSettings();
 
-  const settings = apiStore.siteSettings;
-  const cookiesAccepted = localStorage.getItem("cookiesAccepted") === "true";
-
-  if (settings.googleTagCode && cookiesAccepted) {
-    // Inserir snippet/script/URL completo fornecido pelo painel
-    try {
-      const temp = document.createElement('div');
-      temp.innerHTML = settings.googleTagCode;
-
-      // Adiciona scripts ao <head>
-      temp.querySelectorAll('script').forEach((scr) => {
-        const newScript = document.createElement('script');
-        if (scr.src) {
-          newScript.src = scr.src;
-          newScript.async = scr.async;
-        } else {
-          newScript.innerHTML = scr.innerHTML;
-        }
-        document.head.appendChild(newScript);
-      });
-
-      // Adiciona noscripts (ex.: iframe) no topo do <body>
-      temp.querySelectorAll('noscript').forEach((ns) => {
-        document.body.insertAdjacentHTML('afterbegin', ns.outerHTML);
-      });
-    } catch (e) {
-      console.error('Falha ao injetar Google Tag personalizado', e);
-    }
-  } else if (settings.googleTagId && cookiesAccepted) {
-    useHead({
-      script: [
-        {
-          key: "gtm",
-          innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  // Google Tag Manager
+  useHead({
+    script: [
+      {
+        key: "gtm",
+        innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${settings.googleTagId}');`,
-        },
-      ],
-      noscript: [
-        {
-          key: "gtm-noscript",
-          innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${settings.googleTagId}"
+})(window,document,'script','dataLayer','GTM-K3D2VK93');`,
+      },
+    ],
+    noscript: [
+      {
+        key: "gtm-noscript",
+        innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K3D2VK93"
 height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-          tagPosition: "bodyOpen",
-        },
-      ],
-    });
-  }
+        tagPosition: "bodyOpen",
+      },
+    ],
+  });
 
   // Verificar se o usuário já aceitou ou recusou os cookies
   if (
@@ -198,6 +183,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
       rel="noopener noreferrer"
       class="fixed bottom-6 cursor-pointer right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 group"
       aria-label="Falar no WhatsApp"
+      @click="handleWhatsAppClick"
     >
       <!-- WhatsApp Icon -->
       <svg
