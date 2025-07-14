@@ -192,8 +192,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
     </div>
 
     <!-- WhatsApp Floating Button -->
-    <button
-      onclick="window.location.href='https://api.whatsapp.com/send/?phone=5511958430884&text=Ol%C3%A1%21+Gostaria+de+mais+informa%C3%A7%C3%B5es+sobre+as+tendas.&type=phone_number&app_absent=0'"
+    <a
+      href="https://wa.me/5511958430884"
+      target="_blank"
+      rel="noopener noreferrer"
       class="fixed bottom-6 cursor-pointer right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 group"
       aria-label="Falar no WhatsApp"
     >
@@ -218,7 +220,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
           class="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"
         ></div>
       </div>
-    </button>
+    </a>
   </NuxtLayout>
 </template>
 
