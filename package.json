@@ -26,6 +26,7 @@
     "eslint": "^9.0.0",
     "lucide-vue-next": "^0.501.0",
     "nuxt": "^3.16.2",
+    "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^3.0.2",
     "reka-ui": "^2.2.0",
     "shadcn-nuxt": "2.1.0",
